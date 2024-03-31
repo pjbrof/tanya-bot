@@ -1,9 +1,13 @@
 require("dotenv").config();
+const express = require("express");
 const { Client, GatewayIntentBits, Events } = require("discord.js");
 const cron = require("node-cron");
 const dayjs = require("dayjs");
 const dayOfYear = require("dayjs/plugin/dayOfYear");
 dayjs.extend(dayOfYear);
+
+const app = express();
+const port = 3000;
 
 const firstDayOfApril = dayjs().set("day", 1).set("month", 3).set("year", 2024);
 // 92 is April 1
@@ -38,3 +42,11 @@ client.on(Events.MessageCreate, (message) => {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
