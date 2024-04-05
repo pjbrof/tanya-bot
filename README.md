@@ -33,3 +33,21 @@ client.once(Events.ClientReady, (readyClient) => {
   channel.send("Your message");
 }
 ```
+
+# Deployment
+
+## Local
+
+`npm run dev`
+
+## Docker
+
+`docker build -t [DOCKERNAME]:latest .`
+
+`docker run -p 3000:3000 --env-file .env -d [DOCKERNAME]:latest`
+
+## Docker Repo
+
+`docker push [DOCKERNAME]`
+
+`docker pull [DOCKERNAME]`
