@@ -45,7 +45,7 @@ client.once(Events.ClientReady, (readyClient) => {
 
 client.on(Events.MessageCreate, (message) => {
   if (message.content.includes("PAT")) {
-    message.channel.send(name);
+    message.channel.send(getTodaysMessage());
   }
 });
 
