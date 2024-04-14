@@ -9,14 +9,22 @@ dayjs.extend(dayOfYear);
 const app = express();
 const port = 3000;
 
-const firstDayOfApril = dayjs().set("day", 1).set("month", 3).set("year", 2024);
-// 92 is April 1
-const count = firstDayOfApril.dayOfYear() - 91;
+const getTodaysMessage = () => {
+  const firstDayOfApril = dayjs()
+    .set("day", 1)
+    .set("month", 3)
+    .set("year", 2024);
+  // 92 is April 1
+  const count = firstDayOfApril.dayOfYear() - 91;
 
-let name = "TAANNNYYYY";
-for (i = 0; i <= count; i += 1) {
-  name += "A";
-}
+  console.log("getTodaysMessage", count);
+
+  let name = "TAANNNYYYY";
+  for (i = 0; i <= count; i += 1) {
+    name += "A";
+  }
+  return name;
+};
 
 const client = new Client({
   intents: [
@@ -30,8 +38,8 @@ const client = new Client({
 client.once(Events.ClientReady, (readyClient) => {
   console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 
-  cron.schedule("0 2 * * *", () => {
-    client.users.send(process.env.USER_ID, name);
+  cron.schedule("0 6 * * *", () => {
+    client.users.send(process.env.USER_ID, getTodaysMessage());
   });
 });
 
@@ -43,7 +51,7 @@ client.on(Events.MessageCreate, (message) => {
 
 client.login(process.env.DISCORD_TOKEN);
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.send("Hello World!");
 });
 
